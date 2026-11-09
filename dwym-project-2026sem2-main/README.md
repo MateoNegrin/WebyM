@@ -30,15 +30,13 @@ dwym-project-2026sem2-main/
     ├── web/            React + Vite + React Router (todos los roles)
     ├── mobile/         React Native + Expo + Expo Router (rol Jugador, Android)
     ├── core/           JS puro: cliente de la API, reglas del juego, estados y textos
-    ├── hooks/          React compartido: sesión (zustand), consultas y mutaciones (react-query)
-    └── mock-api/       Implementación local de la API del enunciado (para desarrollo)
+    └── hooks/          React compartido: sesión (zustand), consultas y mutaciones (react-query)
 ```
 
 | Paquete | Qué contiene | Lo usan |
 | --- | --- | --- |
-| `@batalla/core` | `createApiClient` (un método por endpoint), validación de flotas, resultado de disparos, cálculo del turno, estados de partida, historial, etiquetas en español | web, móvil, mock-api |
+| `@batalla/core` | `createApiClient` (un método por endpoint), validación de flotas, resultado de disparos, cálculo del turno, estados de partida, historial, etiquetas en español | web, móvil |
 | `@batalla/hooks` | Store de sesión con **zustand** (`useSessionStore`: usuario y token, persistido), `SessionProvider` (cliente de la API y react-query), `useSession` (login/logout), `useMatch` con *polling*, `usePlacement` (ubicación de barcos), resto de consultas y mutaciones | web, móvil |
-| `@batalla/mock-api` | Servidor Express en memoria que replica la API (rutas, roles, códigos 400/401/403/404 y validaciones de la sección 6.5) | desarrollo y tests |
 
 ---
 
@@ -76,28 +74,7 @@ cp packages/mobile/.env.example packages/mobile/.env
 
 Por defecto se usa la **API de la cátedra** (`https://dwym.hardc0de.com`). Solo hay que completar `VITE_API_KEY` / `EXPO_PUBLIC_API_KEY` con el identificador asignado al equipo. Se puede explorar la API en `https://dwym.hardc0de.com/explorer`. Los usuarios precargados son `admin@example.com`, `org1@example.com` y `player1@example.com` a `player3@example.com`, y la contraseña de cada uno es lo que está a la izquierda de la `@`.
 
-Para desarrollar sin la API de la cátedra, se puede usar la API local del paso 3: URL `http://localhost:4000` y clave `dev`.
-
-> En el **emulador de Android**, el `localhost` de la computadora es `10.0.2.2`. En un **celular físico**, se usa la IP de la computadora en la red local, por ejemplo `http://192.168.1.10:4000`.
-
-### 3. (Opcional) Levantar la API local
-
-```bash
-npm run dev:api
-```
-
-Queda escuchando en `http://localhost:4000` con datos de ejemplo. Todos los usuarios tienen la contraseña **`123456`**:
-
-| Usuario | Rol | Para probar |
-| --- | --- | --- |
-| `lucia@correo.uy` | Jugador | Partidas en todos los estados: su turno, colocar flota, esperando, victoria y derrota por abandono. Tiene una invitación pendiente. |
-| `diego@correo.uy`, `sofia@correo.uy`, `camila@correo.uy`, `mateo@correo.uy`, `ana@correo.uy`, `nicolas@correo.uy` | Jugador | Rivales |
-| `mauro@correo.uy`, `marta@correo.uy` | Organizador | Torneos "Copa Almirante" y "Liga del Puerto" (mauro), "Torneo de Primavera" (marta) |
-| `admin@correo.uy` | Admin | Gestión de usuarios |
-
-Los datos viven en memoria y se reinician al reiniciar el servidor. Variables opcionales: `PORT`, `MOCK_API_KEYS` (claves aceptadas, separadas por coma) y `JWT_SECRET`.
-
-### 4. Web
+### 3. Web
 
 ```bash
 npm run dev:web
@@ -109,7 +86,7 @@ Abre `http://localhost:5173`. Para generar la versión de producción (queda en 
 npm run build:web
 ```
 
-### 5. Móvil (Android)
+### 4. Móvil (Android)
 
 ```bash
 npm run dev:mobile
@@ -123,13 +100,13 @@ Para generar un **APK instalable** con EAS Build (requiere una cuenta de Expo):
 npm run build:android -w @dwym-project-2026sem1/mobile
 ```
 
-### 6. Tests
+### 5. Tests
 
 ```bash
 npm test
 ```
 
-Corre los tests de `core`: reglas del juego, turnos, historial y cliente HTTP. También corre los de `hooks`: el store de sesión de zustand (carga, persistencia y cierre de sesión). Y los de `mock-api`: un flujo completo de torneo contra el servidor real usando el cliente de `core`, con login, invitaciones, partida, disparos hasta hundir la flota, permisos y errores.
+Corre los tests de `core`: reglas del juego, turnos, historial y cliente HTTP. También corre los de `hooks`: el store de sesión de zustand (carga, persistencia y cierre de sesión).
 
 ---
 
@@ -208,8 +185,6 @@ Puede hacer todo lo que hace un Organizador y además:
 **Web: Vite + React Router 7.** Vite da un arranque rápido y un build simple. Las rutas se protegen por sesión (`RequireSession`) y por rol (`RequireRole`, con la jerarquía jugador < organizador < admin). Los estilos son CSS plano con variables, tomados del sistema visual del diseño. Se eligió CSS plano por ser liviano, sin dependencias y fácil de leer.
 
 **Móvil: Expo + Expo Router.** Es la forma recomendada de crear apps React Native hoy. Permite probar en Android con Expo Go sin compilar código nativo, y generar el APK con EAS. Expo Router organiza las pantallas por archivo: un grupo `(app)` que exige sesión, pestañas `(tabs)` para Inicio, Partidas y Perfil, y pantallas de pila para torneo y partida. La barra de pestañas y los componentes son propios, para respetar el diseño.
-
-**API local (`mock-api`).** No es parte de la entrega obligatoria. Se hizo para poder desarrollar y probar sin depender de la API de la cátedra, y para reproducir casos difíciles: turnos, partidas terminadas por abandono y errores 400. Implementa el contrato del enunciado (rutas, roles, flota rival oculta hasta el final, cada `x-api-key` con su propia base) y reutiliza las reglas de `core`. Las apps no dependen de ella: solo cambia la URL del `.env`.
 
 ---
 

@@ -5,17 +5,15 @@
   "private": true,
   "scripts": {
     "docs:gen": "pandoc docs/DWYM-Proyecto-2026sem2.md -s -o docs/DWYM-Proyecto-2026sem2.pdf",
-    "dev:api": "npm run dev -w @batalla/mock-api",
     "dev:web": "npm start -w @dwym-project-2026sem1/web",
     "dev:mobile": "npm start -w @dwym-project-2026sem1/mobile",
     "build:web": "npm run build -w @dwym-project-2026sem1/web",
     "lint": "npm run lint -w @dwym-project-2026sem1/web -w @dwym-project-2026sem1/mobile",
-    "test": "npm test -w @batalla/core -w @batalla/hooks -w @batalla/mock-api"
+    "test": "npm test -w @batalla/core -w @batalla/hooks"
   },
   "workspaces": [
     "packages/core",
     "packages/hooks",
-    "packages/mock-api",
     "packages/api",
     "packages/mobile",
     "packages/web"
