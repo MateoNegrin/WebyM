@@ -1,0 +1,18 @@
+{
+  "description": "DWYM Project - 2026sem2",
+  "license": "UNLICENSED",
+  "name": "dwym-project-2026sem2",
+  "private": true,
+  "scripts": {
+    "docs:gen": "pandoc docs/DWYM-Proyecto-2026sem2.md -s -o docs/DWYM-Proyecto-2026sem2.pdf"
+  },
+  "workspaces": [
+    "packages/api",
+    "packages/mobile",
+    "packages/web"
+  ],
+  "version": "0.1.0",
+  "dependencies": {
+    "zustand": "^5.1.0"
+  }
+}
