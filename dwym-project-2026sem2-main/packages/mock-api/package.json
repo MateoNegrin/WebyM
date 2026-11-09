@@ -1,0 +1,22 @@
+{
+  "name": "@batalla/mock-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Implementación local (en memoria) de la API REST del enunciado, para desarrollo y pruebas.",
+  "type": "module",
+  "main": "./src/app.js",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@batalla/core": "*",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "vitest": "^5.1.0"
+  }
+}

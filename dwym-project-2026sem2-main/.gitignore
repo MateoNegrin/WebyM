@@ -3,3 +3,8 @@
 **/.expo
 .env
 .DS_Store
+.env.local
+*.log
+coverage/
+packages/mobile/android/
+packages/mobile/ios/

@@ -1,0 +1,25 @@
+{
+  "name": "@batalla/hooks",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Capa React compartida por web y móvil: sesión, consultas y mutaciones contra la API.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "dependencies": {
+    "@batalla/core": "*",
+    "zustand": "^5.1.0"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.0.0",
+    "react": ">=18"
+  },
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^5.1.0"
+  }
+}

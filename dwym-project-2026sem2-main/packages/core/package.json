@@ -1,0 +1,17 @@
+{
+  "name": "@batalla/core",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lógica compartida entre web y móvil: cliente de la API REST, reglas del juego y textos.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^5.1.0"
+  }
+}
